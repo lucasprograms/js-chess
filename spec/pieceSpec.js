@@ -1,13 +1,13 @@
 describe("Piece: ", function () {
   beforeEach(function () {
     board = new Chess.Board(8);
-    piece = new Chess.Piece("white", [4, 3], board);
+    piece = new Chess.Piece("white", [4, 3]);
     board.grid[4][3] = piece;
-    piece.move([4, 7]);
+    piece.move([4, 7], board);
   });
 
   it("can move from one square to another", function () {
-    expect(piece.pos).toEqual([4, 7]);
+    expect(piece.pos).toEqual([4, 7], board);
   });
 
   describe("by moving it: ", function () {
@@ -22,15 +22,15 @@ describe("Piece: ", function () {
 
   describe("obeys the rules of piece capture: ", function () {
     it("cannot capture a piece it shares a color with", function () {
-      same_color_piece = new Chess.Piece("white", [4, 4], board);
+      same_color_piece = new Chess.Piece("white", [4, 4]);
       board.grid[4][4] = same_color_piece;
-      expect(piece.canMoveToSquare([4, 4])).toBeFalsy();
+      expect(piece.canMoveToSquare([4, 4], board)).toBeFalsy();
     });
 
     it("can capture a piece of the opposite color", function() {
-      opposite_color_piece = new Chess.Piece("black", [4, 4], board);
+      opposite_color_piece = new Chess.Piece("black", [4, 4]);
       board.grid[4][4] = opposite_color_piece;
-      expect(piece.canMoveToSquare([4, 4])).toEqual("captureable");
+      expect(piece.canMoveToSquare([4, 4], board)).toEqual("captureable");
     });
   });
 

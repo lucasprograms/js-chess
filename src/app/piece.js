@@ -3,25 +3,24 @@
     window.Chess = {};
   }
 
-  var Piece = Chess.Piece = function (color, pos, board) {
-    this.board = board;
+  var Piece = Chess.Piece = function (color, pos) {
     this.color = color;
     this.pos = pos;
   };
 
-  Piece.prototype.move = function (pos) {
+  Piece.prototype.move = function (pos, board) {
     board.grid[this.pos[0]][this.pos[1]] = [];
     this.pos = pos;
     board.grid[pos[0]][pos[1]] = this;
   };
 
-  Piece.prototype.canMoveToSquare = function (pos) {
-    if (!this.board.isOnBoard(pos)) {
+  Piece.prototype.canMoveToSquare = function (pos, board) {
+    if (!board.isOnBoard(pos)) {
       return false;
     }
 
-    isEmpty = this.board.isEmptyAt(pos);
-    hasOppositeColor = this.board.hasPieceAt(pos).color !== this.color;
+    isEmpty = board.isEmptyAt(pos);
+    hasOppositeColor = board.hasPieceAt(pos).color !== this.color;
 
     if (isEmpty) {
       return true;
@@ -33,10 +32,10 @@
 
   };
 
-  Piece.prototype.canReachSquare = function (pos) {
+  Piece.prototype.canReachSquare = function (pos, board) {
     var val = false;
 
-    _.each(this.reachableSquares(), function(square) {
+    _.each(this.reachableSquares(board), function(square) {
       if (square[0] === pos[0] && square[1] === pos[1]) {
         val = true;
       }

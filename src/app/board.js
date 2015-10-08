@@ -7,7 +7,6 @@
   var Board = Chess.Board = function(dim) {
     this.dim = dim;
     this.grid = this.makeGrid();
-    this.populateGrid();
   };
 
   Board.prototype.makeGrid = function (callback) {
@@ -30,7 +29,6 @@
     this.placePieces();
     this.placePawns();
     this.informPiecesOfBoardState();
-    debugger
   };
 
   Board.prototype.placePieces = function () {

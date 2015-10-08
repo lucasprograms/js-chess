@@ -3,20 +3,19 @@
     window.Chess = {};
   }
 
-  var Pawn = Chess.Pawn = function (color, pos, board) {
+  var Pawn = Chess.Pawn = function (color, pos) {
     this.color = color;
     this.pos = pos;
-    this.board = board;
     this.hasMoved = false;
     this.moveDirs = this.getMoveDirs();
   };
 
   Pawn.inherits(Chess.Piece);
 
-  Pawn.prototype.canReachSquare = function (pos) {
+  Pawn.prototype.canReachSquare = function (pos, board) {
     var val = false;
 
-    _.each(this.reachableSquares(), function(square) {
+    _.each(this.reachableSquares(board), function(square) {
       if (square[0] === pos[0] && square[1] === pos[1]) {
         val = true;
       }
@@ -25,13 +24,13 @@
     return val;
   };
 
-  Pawn.prototype.reachableSquares = function () {
+  Pawn.prototype.reachableSquares = function (board) {
     squares = [];
 
     _.each(this.moveDirs, function(dir) {
       var currentSquare = [this.pos[0] + dir[0], this.pos[1] + dir[1]];
 
-      squareStatus = this.canMoveToSquare(currentSquare);
+      squareStatus = this.canMoveToSquare(currentSquare, board);
 
       if (squareStatus === true) {
         if (Math.abs(dir[0]) !== Math.abs(dir[1])) {
@@ -59,13 +58,8 @@
       var newDirs = [];
 
       _.each(moveDirs, function (dir) {
-        // if (dir[0] !== 0) {
-          dir[0] *= -1;
-        // }
-
-        // if (dir[1] !== 0) {
-          dir[1] *= -1;
-        // }
+        dir[0] *= -1;
+        dir[1] *= -1;
 
         newDirs.push(dir);
       });
