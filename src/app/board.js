@@ -40,7 +40,6 @@
     var row = 7;
     var col = 0;
 
-
     _.each(colors, function(color) {
       _.each(pieces, function(piece) {
         this.grid[row][col] = new piece[0](color, [row, col], piece[1]);
@@ -83,6 +82,24 @@
   Board.prototype.isOnBoard = function (pos) {
     return (pos[0] > -1 && pos[0] < 8) &&
            (pos[1] > -1 && pos[1] < 8);
+  };
+
+  Board.prototype.evaluateMove = function (startPos, endPos) {
+    var initialSquare = [startPos.row, startPos.col];
+    var targetSquare = [endPos.row, endPos.col];
+
+    var piece = this.grid[initialSquare[0]][initialSquare[1]];
+    debugger
+    if (piece.canReachSquare(targetSquare, this)) {
+      piece.pos = targetSquare;
+      this.grid[targetSquare[0]][targetSquare[1]] = piece;
+      this.grid[initialSquare[0]][initialSquare[1]] = [];
+      return this;
+    } else {
+      return false;
+    }
+
+
   };
 
 })();

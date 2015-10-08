@@ -21,4 +21,25 @@ describe("board:", function () {
       expect(grid[7][8]).toBe(undefined);
     });
   });
+
+  describe("#evaluateMove", function () {
+    beforeEach(function () {
+      rook = new Chess.Rook("black", [4, 4], "Rook");
+      knight = new Chess.Knight("white", [4, 2], "Knight");
+      board.grid[4][4] = rook;
+      board.grid[4][2] = knight;
+    });
+
+    it("delegates to the appropriate piece class", function () {
+      
+    });
+
+    it("accepts valid moves", function () {
+
+    });
+
+    it("rejects invalid moves", function () {
+
+    });
+  });
 });

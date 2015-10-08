@@ -2,6 +2,10 @@ ul {
   list-style: none;
 }
 
+img {
+  margin: 0 auto;
+}
+
 .group {
   content: "";
   clear: both;
