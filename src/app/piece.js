@@ -9,10 +9,10 @@
     this.type = type;
   };
 
-  Piece.prototype.move = function (pos, board) {
-    board.grid[this.pos[0]][this.pos[1]] = [];
+  Piece.prototype.move = function (pos, grid) {
+    grid[this.pos[0]][this.pos[1]] = [];
     this.pos = pos;
-    board.grid[pos[0]][pos[1]] = this;
+    grid[pos[0]][pos[1]] = this;
 
     if (this.hasMoved === false) {
       this.hasMoved = true;

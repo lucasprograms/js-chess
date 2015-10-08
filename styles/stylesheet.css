@@ -4,6 +4,13 @@ ul {
 
 img {
   margin: 0 auto;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+img:active {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
 }
 
 .group {
@@ -14,6 +21,7 @@ img {
 
 .grid {
   margin: 10px auto;
+  cursor: grab;
 }
 
 .row{

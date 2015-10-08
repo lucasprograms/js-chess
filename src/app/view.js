@@ -41,7 +41,7 @@
           boardStatus = this.board.evaluateMove(startingSquare, targetSquare);
 
           if (boardStatus) {
-
+            $(e.target).empty();
             $(e.target).append(ui.draggable);
             ui.draggable.css({
               top: 0,

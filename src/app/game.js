@@ -7,6 +7,7 @@
     this.board = new Chess.Board(8);
     this.board.populateGrid();
     this.view = new Chess.View(this.board);
+    this.currentColor = "white";
   };
 
   Game.prototype.testMove = function (start_pos, end_pos) {
@@ -21,6 +22,10 @@
   Game.prototype.performMove = function (piece, end_pos) {
     piece.move(end_pos, this.board);
     this.view.render();
+  };
+
+  Game.prototype.switchColors = function () {
+    this.currentColor = (this.currentColor === "white") ? "black" : "white";
   };
 
 })();

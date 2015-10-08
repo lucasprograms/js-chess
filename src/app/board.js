@@ -89,17 +89,31 @@
     var targetSquare = [endPos.row, endPos.col];
 
     var piece = this.grid[initialSquare[0]][initialSquare[1]];
-    debugger
-    if (piece.canReachSquare(targetSquare, this)) {
-      piece.pos = targetSquare;
-      this.grid[targetSquare[0]][targetSquare[1]] = piece;
-      this.grid[initialSquare[0]][initialSquare[1]] = [];
-      return this;
-    } else {
+
+    if (piece.color !== game.currentColor) {
       return false;
     }
 
-
+    if (piece.canReachSquare(targetSquare, this)) {
+      if (!this.checkForCheck(piece, targetSquare)) {
+        piece.move(targetSquare, this.grid);
+        game.switchColors();
+        return this;
+      }
+    } else {
+      return false;
+    }
   };
+
+  Board.prototype.checkForCheck = function (piece, targetSquare) {
+    gridClone = this.grid.deepClone();
+    debugger
+
+    piece.move(targetSquare, gridClone);
+  };
+
+
+
+
 
 })();

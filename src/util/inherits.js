@@ -8,3 +8,17 @@ Function.prototype.inherits = function (BaseClass) {
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };
+
+Array.prototype.deepClone = function () {
+  var arrClone = [];
+
+  _.each(this, function(innerObj) {
+    if (Array.isArray(innerObj)) {
+      arrClone.push(innerObj.deepClone());
+    } else {
+      arrClone.push(_.clone(innerObj));
+    }
+  });
+
+  return arrClone;
+};
