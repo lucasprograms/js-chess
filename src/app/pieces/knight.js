@@ -3,8 +3,8 @@
     window.Chess = {};
   }
 
-  var Knight = Chess.Knight = function (color, pos) {
-    Chess.Steppable.call(this, color, pos);
+  var Knight = Chess.Knight = function (color, pos, type) {
+    Chess.Steppable.call(this, color, pos, type);
     this.moveDirs = Knight.KNIGHT_DIRS;
   };
 

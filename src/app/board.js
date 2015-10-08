@@ -28,13 +28,14 @@
   Board.prototype.populateGrid = function () {
     this.placePieces();
     this.placePawns();
-    this.informPiecesOfBoardState();
   };
 
   Board.prototype.placePieces = function () {
     var colors = ["white", "black"];
-    var pieces = [Chess.Rook, Chess.Knight, Chess.Bishop, Chess.Queen,
-                  Chess.King, Chess.Bishop, Chess.Knight, Chess.Rook];
+    var pieces = [[Chess.Rook, "Rook"], [Chess.Knight, "Knight"],
+                  [Chess.Bishop, "Bishop"], [Chess.Queen, "Queen"],
+                  [Chess.King, "King"], [Chess.Bishop, "Bishop"],
+                  [Chess.Knight, "Knight"], [Chess.Rook, "Rook"]];
 
     var row = 7;
     var col = 0;
@@ -42,7 +43,7 @@
 
     _.each(colors, function(color) {
       _.each(pieces, function(piece) {
-        this.grid[row][col] = new piece(color, [row, col]);
+        this.grid[row][col] = new piece[0](color, [row, col], piece[1]);
         col += 1;
       }.bind(this));
 
@@ -58,25 +59,13 @@
 
     _.each(colors, function(color) {
       _.times(8, function(piece) {
-        this.grid[row][col] = new Chess.Pawn(color, [row, col]);
+        this.grid[row][col] = new Chess.Pawn(color, [row, col], "Pawn");
         col += 1;
       }.bind(this));
 
       row = 1;
       col = 0;
     }.bind(this));
-  };
-
-  Board.prototype.informPiecesOfBoardState = function () {
-    board = this;
-
-    _.each(board.grid, function(row) {
-      _.each(row, function(square) {
-        if (square.toString !== "") {
-          square.board = board.grid;
-        }
-      });
-    });
   };
 
   Board.prototype.isEmptyAt = function (pos) {

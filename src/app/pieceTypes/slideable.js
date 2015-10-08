@@ -3,8 +3,8 @@
     window.Chess = {};
   }
 
-  var Slideable = Chess.Slideable = function (color, pos) {
-    Chess.Piece.call(this, color, pos);
+  var Slideable = Chess.Slideable = function (color, pos, type) {
+    Chess.Piece.call(this, color, pos, type);
   };
 
   Slideable.inherits(Chess.Piece);

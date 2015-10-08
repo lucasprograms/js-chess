@@ -3,8 +3,8 @@
     window.Chess = {};
   }
 
-  var Steppable = Chess.Steppable = function (color, pos) {
-    Chess.Piece.call(this, color, pos);
+  var Steppable = Chess.Steppable = function (color, pos, type) {
+    Chess.Piece.call(this, color, pos, type);
   };
 
   Steppable.inherits(Chess.Piece);

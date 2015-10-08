@@ -3,9 +3,10 @@
     window.Chess = {};
   }
 
-  var Piece = Chess.Piece = function (color, pos) {
+  var Piece = Chess.Piece = function (color, pos, type) {
     this.color = color;
     this.pos = pos;
+    this.type = type;
   };
 
   Piece.prototype.move = function (pos, board) {

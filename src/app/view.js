@@ -3,38 +3,42 @@
     window.Chess = {};
   }
 
-  var View = Chess.View = function() {
-    this.canvas = document.getElementById("grid");
-    this.board = new Chess.Board(8);
+  var View = Chess.View = function(board) {
+    this.$el = $(".grid");
+    this.board = board;
     this.render();
   };
 
+
   View.prototype.render = function () {
-    var squareSize = 100; //square size
-
-    var ctx = this.canvas.getContext("2d");
-    ctx.fillStyle = "#654321";
-
-    var x = 0;
-    var y = 0;
+    this.$el.empty();
+    var color = "#EDC9AF";
 
     _.each(this.board.grid, function(row) {
+      $ul = $("<ul>");
+      $ul.addClass("group row");
+      this.$el.append($ul);
       _.each(row, function(square) {
-        ctx.fillRect(x, y, squareSize, squareSize);
-        // ctx.strokeRect(x, y, squareSize, squareSize);
+        $li = $("<li>");
+        $li.addClass("square");
 
-        x += squareSize;
-        ctx.fillStyle = (ctx.fillStyle === "#654321") ? "#cfbea5" : "#654321";
+        $ul.append($li);
+
+        if (square.type) {
+
+          $li.append('<img src="images/' + square.color.capitalize() +
+          square.type + '.png">' );
+        }
+
+        $li.css("background", color);
+
+        color = (color === "#EDC9AF") ? "#7B3F00" : "#EDC9AF";
       });
 
-      ctx.fillStyle = (ctx.fillStyle === "#654321") ? "#cfbea5" : "#654321";
-      x = 0;
-      y += squareSize;
-    });
+      color = (color === "#EDC9AF") ? "#7B3F00" : "#EDC9AF";
+    }.bind(this));
+
   };
 
 
-
 })();
-
-view = new Chess.View();

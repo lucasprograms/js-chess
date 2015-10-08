@@ -8,8 +8,8 @@
       window.Chess = {};
     }
 
-    var King = Chess.King = function (color, pos) {
-      Chess.Steppable.call(this, color, pos);
+    var King = Chess.King = function (color, pos, type) {
+      Chess.Steppable.call(this, color, pos, type);
       this.moveDirs = King.KING_DIRS;
     };
 

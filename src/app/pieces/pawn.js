@@ -3,9 +3,10 @@
     window.Chess = {};
   }
 
-  var Pawn = Chess.Pawn = function (color, pos) {
+  var Pawn = Chess.Pawn = function (color, pos, type) {
     this.color = color;
     this.pos = pos;
+    this.type = type;
     this.hasMoved = false;
     this.moveDirs = this.getMoveDirs();
   };

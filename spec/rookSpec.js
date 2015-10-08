@@ -15,7 +15,6 @@ describe("rook:", function () {
   });
 
   it("accepts vertical moves", function () {
-    debugger
     expect(rook.canReachSquare([0, 3], board)).toBeTruthy();
   });
 
