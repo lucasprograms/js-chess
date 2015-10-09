@@ -54,3 +54,80 @@ img:active {
   border: 1px solid #000;
   float: left;
 }
+
+.modal {
+  color: #333;
+  display: none;
+  font-weight: bold;
+  position: fixed;
+  margin: 0 auto;
+  right: 0%;
+  left: 0%;
+  top: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  width: 496px;
+  height: 496px;
+  z-index: 2;
+}
+
+.promo-form {
+  display: none;
+  position: relative;
+  top: 40%;
+  margin: 0 auto;
+  width: 372px;
+  height: 92px;
+  z-index: 3;
+  border: 2px solid #000;
+  background: #ccc;
+}
+
+.promo-choice {
+  display: none;
+  float: left;
+  width: 78px;
+  height: 78px;
+  border: 2px solid #000;
+  margin: 5px;
+  background: #eee;
+}
+
+.promo-choice > img {
+  height: 75px;
+  cursor: pointer;
+}
+
+.checkmate-form {
+  display: none;
+  font-size: 60px;
+  font-family: sans-serif;
+  position: relative;
+  margin: 0 auto;
+  width: 372px;
+  height: 72px;
+  top: 40%;
+  z-index: 3;
+  border: 2px solid #000;
+  background: #ccc;
+}
+
+.play-again {
+  display: none;
+  font-size: 40px;
+  font-family: sans-serif;
+  margin: 0 auto;
+  position: relative;
+  padding: 20px 10px 20px 10px;
+  width: 298px;
+  top: 60%;
+  z-index: 3;
+  border: 2px solid #000;
+  background: #0c0;
+  color: #fff;
+  cursor: pointer;
+}
+
+.play-again:hover {
+  background: #0a0;
+  color: #ddd;
+}

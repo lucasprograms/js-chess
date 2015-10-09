@@ -84,6 +84,10 @@
         top: 0,
         left: 0
       });
+      var color = $(e.target).css("background");
+      $(e.target).css("background", "#ff4d4d");
+
+      window.setTimeout(function() {$(e.target).css("background", color);}, 1000);
     }
   };
 

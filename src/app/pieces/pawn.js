@@ -71,8 +71,9 @@
     return moveDirs;
   };
 
-  Pawn.prototype.promote = function () {
-    return new Chess.Queen(this.color, this.pos, "Queen");
+  Pawn.prototype.promote = function (promotionPiece) {
+    // promotionPiece = eval(promotionPiece);
+    return new Chess[promotionPiece](this.color, this.pos, "Queen");
   };
 
 

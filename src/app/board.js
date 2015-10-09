@@ -112,18 +112,37 @@
         }
 
         if (piece.type === "Pawn" && (piece.pos[0] === 0 || piece.pos[0] === 7)) {
-          this.grid[targetSquare[0]][targetSquare[1]] = piece.promote();
-          game.view.render();
+          $(".modal").css("display", "inline-block");
+          $(".promo-form").css("display", "block");
+          $(".promo-choice").css("display", "block");
+
+          $(".promo-choice").click(function (e) {
+            var promotionPiece = $(e.currentTarget).data('type');
+            this.grid[targetSquare[0]][targetSquare[1]] = piece.promote(promotionPiece);
+            game.view.render();
+            $(".promo-choice").css("display", "none");
+            $(".promo-form").css("display", "none");
+            $(".modal").css("display", "none");
+          }.bind(this));
         }
 
         if (this.isCheckmate()) {
-          console.log('checkmate!');
+          $(".modal").css("display", "inline-block");
+          $(".checkmate-form").css("display", "block");
+          $(".play-again").css("display", "block");
+          $(".play-again").click(function () {
+            game = new Chess.Game();
+            $(".modal").css("display", "none");
+            $(".checkmate-form").css("display", "none");
+            $(".play-again").css("display", "none");
+          });
         }
 
         game.switchColors();
         return this;
       }
     } else {
+
       return false;
     }
   };
@@ -199,6 +218,7 @@
 
         var pieceClone = _.clone(piece);
         pieceClone.move(square, boardClone);
+        var myPieces = this.findPieces(game.currentColor, boardClone);
 
         if (pieceClone.type === "King") {
           if (!boardClone.lookForCheck(pieceClone, myPieces, boardClone)) {
@@ -211,8 +231,8 @@
         }
 
         pieceClone.move([piece.pos[0], piece.pos[1]], boardClone);
-      });
-    });
+      }.bind(this));
+    }.bind(this));
 
     return isCheckmate;
   };
