@@ -37,24 +37,7 @@
           startingSquare = ui.draggable.parent().data('pos');
           targetSquare = $(e.target).data('pos');
 
-          boardStatus = this.board.evaluateMove(startingSquare, targetSquare);
-
-          if (boardStatus) {
-            $(e.target).empty();
-            $(e.target).append(ui.draggable);
-            ui.draggable.css({
-              top: 0,
-              left: 0
-            });
-  
-          } else {
-
-            ui.draggable.parent().append(ui.draggable);
-            ui.draggable.css({
-              top: 0,
-              left: 0
-            });
-          }
+          this.getMoveValidity(startingSquare, targetSquare, e, ui);
         }.bind(this));
 
         $ul.append($li);
@@ -64,7 +47,7 @@
           $img = $('<img src="images/' + square.color.capitalize() +
           square.type + '.png">');
           $img.draggable({
-
+            containment: ".grid"
           });
 
           $li.append($img);
@@ -72,15 +55,40 @@
 
         $li.css("background", color);
 
-        color = (color === "#EDC9AF") ? "#7B3F00" : "#EDC9AF";
+        color = this.switchBackground(color);
         col_val += 1;
       }.bind(this));
 
-      color = (color === "#EDC9AF") ? "#7B3F00" : "#EDC9AF";
+      color = this.switchBackground(color);
       row_val += 1;
       col_val = 0;
     }.bind(this));
 
+  };
+
+  View.prototype.getMoveValidity = function (startingSquare, targetSquare, e, ui) {
+    boardStatus = this.board.evaluateMove(startingSquare, targetSquare);
+
+    if (boardStatus) {
+      $(e.target).empty();
+      $(e.target).append(ui.draggable);
+      ui.draggable.css({
+        top: 0,
+        left: 0
+      });
+
+    } else {
+
+      ui.draggable.parent().append(ui.draggable);
+      ui.draggable.css({
+        top: 0,
+        left: 0
+      });
+    }
+  };
+
+  View.prototype.switchBackground = function (color) {
+    return (color === "#EDC9AF") ? "#7B3F00" : "#EDC9AF";
   };
 
 

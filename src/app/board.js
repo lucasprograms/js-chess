@@ -92,6 +92,7 @@
   Board.prototype.evaluateMove = function (startPos, endPos) {
     var initialSquare = [startPos.row, startPos.col];
     var targetSquare = [endPos.row, endPos.col];
+    var castling = false;
 
     var piece = this.grid[initialSquare[0]][initialSquare[1]];
 
@@ -99,12 +100,21 @@
       return false;
     }
 
-    if (piece.canReachSquare(targetSquare, this)) {
+    var canReachSquare = piece.canReachSquare(targetSquare, this);
+
+
+    if (canReachSquare) {
       if (!this.inCheck(piece, targetSquare)) {
-        piece.move(targetSquare, this);
+        if (piece.type === "King" && Math.abs(piece.pos[1] - targetSquare[1]) === 2) {
+          piece.move(targetSquare, this, "castling");
+        } else {
+          piece.move(targetSquare, this);
+        }
+
         if (this.isCheckmate()) {
           console.log('checkmate!');
         }
+
         game.switchColors();
         return this;
       }
@@ -158,7 +168,8 @@
     var inCheck = false;
 
     _.each(opposingPieces, function(piece) {
-      if (piece.canReachSquare(king.pos, board)) {
+      if (piece.canReachSquare(king.pos, board) && piece.type !== "King") {
+
         inCheck = true;
         return;
       }
@@ -199,5 +210,30 @@
     });
 
     return isCheckmate;
+  };
+
+  Board.prototype.findRook = function (pos) {
+
+    if (pos[0] === 7 && pos[1] === 6) {
+      return this.grid[7][7];
+    } else if (pos[0] === 7 && pos[1] === 2) {
+      return this.grid[7][0];
+    } else if (pos[0] === 0 && pos[1] === 6) {
+      return this.grid[0][7];
+    } else {
+      return this.grid[0][0];
+    }
+  };
+
+  Board.prototype.getRookPosForCastling = function (rook) {
+    if (rook.pos[0] === 7 && rook.pos[1] === 7) {
+      return [7, 5];
+    } else if (rook.pos[0] === 7 && rook.pos[1] === 0) {
+      return [7, 3];
+    } else if (rook.pos[0] === 0 && rook.pos[1] === 7) {
+      return [0, 5];
+    } else {
+      return [0, 3];
+    }
   };
 })();

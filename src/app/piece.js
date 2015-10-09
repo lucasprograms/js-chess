@@ -9,10 +9,20 @@
     this.type = type;
   };
 
-  Piece.prototype.move = function (pos, board) {
+  Piece.prototype.move = function (pos, board, castling) {
+    if (castling) {
+      var rook = board.findRook(pos);
+      var rookPos = board.getRookPosForCastling(rook);
+      rook.move(rookPos, board);
+    }
+
     board.grid[this.pos[0]][this.pos[1]] = [];
     this.pos = pos;
     board.grid[pos[0]][pos[1]] = this;
+
+    if (castling) {
+      game.view.render();
+    }
 
     if (this.hasMoved === false) {
       this.hasMoved = true;
@@ -44,7 +54,15 @@
   Piece.prototype.canReachSquare = function (pos, board) {
     var val = false;
 
-    _.each(this.reachableSquares(board), function(square) {
+    reachableSquares = this.reachableSquares(board);
+
+    if (this.type === "King" && board === game.board) {
+      if (this.canCastleTo(pos, board)) {
+        reachableSquares.push(pos);
+      }
+    }
+
+    _.each(reachableSquares, function(square) {
       if (square[0] === pos[0] && square[1] === pos[1]) {
         val = true;
       }

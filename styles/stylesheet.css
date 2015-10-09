@@ -1,3 +1,21 @@
+html, body, ul, li, img, div {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  vertical-align: inherit;
+  box-sizing: inherit;
+  background: transparent;
+}
+
+body {
+  text-align: center;
+}
+
 ul {
   list-style: none;
 }
@@ -21,11 +39,12 @@ img:active {
 }
 
 .grid {
-  margin: 10px auto;
+  margin: 10px 0;
+  display: inline-block;
   cursor: grab;
 }
 
-.row{
+.row {
   width: 496px;
 }
 
