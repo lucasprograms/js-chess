@@ -4,9 +4,14 @@
     window.Chess = {};
   }
 
-  var Board = Chess.Board = function(dim) {
+  var Board = Chess.Board = function(dim, grid) {
     this.dim = dim;
-    this.grid = this.makeGrid();
+    if (grid) {
+      this.grid = grid;
+    } else {
+      this.grid = this.makeGrid();
+    }
+
   };
 
   Board.prototype.makeGrid = function (callback) {
@@ -95,8 +100,8 @@
     }
 
     if (piece.canReachSquare(targetSquare, this)) {
-      if (!this.checkForCheck(piece, targetSquare)) {
-        piece.move(targetSquare, this.grid);
+      if (!this.inCheck(piece, targetSquare)) {
+        piece.move(targetSquare, this);
         game.switchColors();
         return this;
       }
@@ -105,12 +110,64 @@
     }
   };
 
-  Board.prototype.checkForCheck = function (piece, targetSquare) {
-    gridClone = this.grid.deepClone();
-    debugger
+  Board.prototype.inCheck = function (piece, targetSquare) {
+    var boardClone = new Chess.Board(8, this.grid.deepClone());
 
-    piece.move(targetSquare, gridClone);
+    _.clone(piece).move(targetSquare, boardClone);
+
+    var king = this.findKing(boardClone);
+    var opposingPieces = this.findOpposingPieces(boardClone);
+
+    return this.lookForCheck(king, opposingPieces, boardClone);
   };
+
+  Board.prototype.findKing = function (board) {
+    var king = "undefined";
+
+    _.each(board.grid, function(row) {
+      _.each(row, function(square) {
+        if (square.color === game.currentColor && square.type === "King") {
+          king = square;
+        }
+      });
+    });
+
+    return king;
+  };
+
+  Board.prototype.findOpposingPieces = function (board) {
+    var opposingPieces = [];
+
+    _.each(board.grid, function(row) {
+      _.each(row, function(square) {
+        if (square.color && square.color !== game.currentColor) {
+          opposingPieces.push(square);
+        }
+      });
+    });
+
+    return opposingPieces;
+  };
+
+  Board.prototype.lookForCheck = function (king, opposingPieces, board) {
+
+    var inCheck = false;
+
+    _.each(opposingPieces, function(piece) {
+      if (piece.canReachSquare(king.pos, board)) {
+        inCheck = true;
+        return;
+      }
+    });
+
+    return inCheck;
+  };
+
+  Board.prototype.isCheckmate = function () {
+    
+  };
+
+
 
 
 

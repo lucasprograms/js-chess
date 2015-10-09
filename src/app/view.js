@@ -34,7 +34,6 @@
 
         $li.bind("drop", function (e, ui) {
 
-          // piece = ui.draggable.attr('src').slice(7, -4);
           startingSquare = ui.draggable.parent().data('pos');
           targetSquare = $(e.target).data('pos');
 
@@ -47,7 +46,7 @@
               top: 0,
               left: 0
             });
-            this.board = boardStatus;
+  
           } else {
 
             ui.draggable.parent().append(ui.draggable);

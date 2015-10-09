@@ -24,6 +24,7 @@
   ];
 
   Slideable.prototype.reachableSquares = function (board) {
+    
     squares = [];
 
     _.each(this.moveDirs, function(dir) {
