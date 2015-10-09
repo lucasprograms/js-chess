@@ -11,6 +11,7 @@ img {
 img:active {
   cursor: -webkit-grabbing;
   cursor: grabbing;
+  z-index: 2;
 }
 
 .group {

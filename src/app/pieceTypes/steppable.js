@@ -20,6 +20,14 @@
       }
     }.bind(this));
 
+    if (this.type === "King" && this.hasMoved === false) {
+      debugger
+      if (this.canCastleKingside(board)) {
+        debugger
+        squares.push(this.canCastleKingside(board));
+      }
+    }
+
     return squares;
   };
 

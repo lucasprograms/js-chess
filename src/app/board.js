@@ -102,6 +102,9 @@
     if (piece.canReachSquare(targetSquare, this)) {
       if (!this.inCheck(piece, targetSquare)) {
         piece.move(targetSquare, this);
+        if (this.isCheckmate()) {
+          console.log('checkmate!');
+        }
         game.switchColors();
         return this;
       }
@@ -115,18 +118,19 @@
 
     _.clone(piece).move(targetSquare, boardClone);
 
-    var king = this.findKing(boardClone);
-    var opposingPieces = this.findOpposingPieces(boardClone);
+    var oppColor = (game.currentColor === "white") ? "black" : "white";
+    var king = this.findKing(game.currentColor, boardClone);
+    var opposingPieces = this.findPieces(oppColor, boardClone);
 
     return this.lookForCheck(king, opposingPieces, boardClone);
   };
 
-  Board.prototype.findKing = function (board) {
+  Board.prototype.findKing = function (color, board) {
     var king = "undefined";
 
     _.each(board.grid, function(row) {
       _.each(row, function(square) {
-        if (square.color === game.currentColor && square.type === "King") {
+        if (square.color === color && square.type === "King") {
           king = square;
         }
       });
@@ -135,12 +139,12 @@
     return king;
   };
 
-  Board.prototype.findOpposingPieces = function (board) {
+  Board.prototype.findPieces = function (color, board) {
     var opposingPieces = [];
 
     _.each(board.grid, function(row) {
       _.each(row, function(square) {
-        if (square.color && square.color !== game.currentColor) {
+        if (square.color && square.color === color) {
           opposingPieces.push(square);
         }
       });
@@ -164,13 +168,36 @@
   };
 
   Board.prototype.isCheckmate = function () {
-    
+    oppColor = (game.currentColor === "white") ? "black" : "white";
+
+    var isCheckmate = true;
+
+    var boardClone = new Chess.Board(8, _.clone(this.grid.deepClone()));
+
+    var oppKing = this.findKing(oppColor, boardClone);
+    var oppPieces = this.findPieces(oppColor, boardClone);
+    var myPieces = this.findPieces(game.currentColor, boardClone);
+
+    _.each(oppPieces, function(piece) {
+      _.each(piece.reachableSquares(boardClone), function(square) {
+
+        var pieceClone = _.clone(piece);
+        pieceClone.move(square, boardClone);
+
+        if (pieceClone.type === "King") {
+          if (!boardClone.lookForCheck(pieceClone, myPieces, boardClone)) {
+            isCheckmate = false;
+          }
+        } else {
+          if (!boardClone.lookForCheck(oppKing, myPieces, boardClone)) {
+            isCheckmate = false;
+          }
+        }
+
+        pieceClone.move([piece.pos[0], piece.pos[1]], boardClone);
+      });
+    });
+
+    return isCheckmate;
   };
-
-
-
-
-
-
-
 })();

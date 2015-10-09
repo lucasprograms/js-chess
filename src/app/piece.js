@@ -9,14 +9,17 @@
     this.type = type;
   };
 
-  Piece.prototype.move = function (pos, board) {  
+  Piece.prototype.move = function (pos, board) {
     board.grid[this.pos[0]][this.pos[1]] = [];
     this.pos = pos;
-    board.grid[pos[0]][pos[1]] = this;  
+    board.grid[pos[0]][pos[1]] = this;
 
     if (this.hasMoved === false) {
       this.hasMoved = true;
-      this.moveDirs = this.getMoveDirs();
+      if (this.type === "Pawn") {
+        this.moveDirs = this.getMoveDirs();
+      }
+
     }
   };
 

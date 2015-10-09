@@ -5,6 +5,7 @@
 
   var Rook = Chess.Rook = function(color, pos, type) {
     Chess.Slideable.call(this, color, pos, type);
+    this.hasMoved = false;
     this.moveDirs = Chess.Slideable.HZ_AND_VT_DIRS;
   };
 
