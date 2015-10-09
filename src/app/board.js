@@ -111,6 +111,11 @@
           piece.move(targetSquare, this);
         }
 
+        if (piece.type === "Pawn" && (piece.pos[0] === 0 || piece.pos[0] === 7)) {
+          this.grid[targetSquare[0]][targetSquare[1]] = piece.promote();
+          game.view.render();
+        }
+
         if (this.isCheckmate()) {
           console.log('checkmate!');
         }

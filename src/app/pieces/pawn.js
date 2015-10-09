@@ -71,5 +71,9 @@
     return moveDirs;
   };
 
+  Pawn.prototype.promote = function () {
+    return new Chess.Queen(this.color, this.pos, "Queen");
+  };
+
 
 })();
