@@ -211,14 +211,17 @@
 
     var oppKing = this.findKing(oppColor, boardClone);
     var oppPieces = this.findPieces(oppColor, boardClone);
-    var myPieces = this.findPieces(game.currentColor, boardClone);
+
 
     _.each(oppPieces, function(piece) {
       _.each(piece.reachableSquares(boardClone), function(square) {
 
         var pieceClone = _.clone(piece);
+        var initialSquareStatus = _.clone(boardClone.grid[square[0]][square[1]]);
+
         pieceClone.move(square, boardClone);
         var myPieces = this.findPieces(game.currentColor, boardClone);
+
 
         if (pieceClone.type === "King") {
           if (!boardClone.lookForCheck(pieceClone, myPieces, boardClone)) {
@@ -231,6 +234,7 @@
         }
 
         pieceClone.move([piece.pos[0], piece.pos[1]], boardClone);
+        boardClone.grid[square[0]][square[1]] = initialSquareStatus;
       }.bind(this));
     }.bind(this));
 
