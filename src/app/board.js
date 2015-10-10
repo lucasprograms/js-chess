@@ -211,7 +211,7 @@
 
     var oppKing = this.findKing(oppColor, boardClone);
     var oppPieces = this.findPieces(oppColor, boardClone);
-    var myPieces = this.findPieces(game.currentColor, boardClone);
+
 
     _.each(oppPieces, function(piece) {
       _.each(piece.reachableSquares(boardClone), function(square) {
@@ -222,7 +222,6 @@
         pieceClone.move(square, boardClone);
         myPieces = this.findPieces(game.currentColor, boardClone);
 
-        
         if (pieceClone.type === "King") {
           if (!boardClone.lookForCheck(pieceClone, myPieces, boardClone)) {
             isCheckmate = false;

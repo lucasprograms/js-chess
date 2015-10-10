@@ -72,7 +72,6 @@
   };
 
   Pawn.prototype.promote = function (promotionPiece) {
-    
     return new Chess[promotionPiece](this.color, this.pos, promotionPiece);
   };
 
