@@ -72,8 +72,8 @@
   };
 
   Pawn.prototype.promote = function (promotionPiece) {
-    // promotionPiece = eval(promotionPiece);
-    return new Chess[promotionPiece](this.color, this.pos, "Queen");
+    
+    return new Chess[promotionPiece](this.color, this.pos, promotionPiece);
   };
 
 
