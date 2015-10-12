@@ -32,6 +32,13 @@ img:active {
   z-index: 2;
 }
 
+header {
+  display: block;
+  font-size: 60px;
+  font-family: 'Raleway', sans-serif;
+  margin: 10px 0 25px 0;
+}
+
 .group {
   content: "";
   clear: both;
@@ -39,9 +46,7 @@ img:active {
 }
 
 .grid {
-  margin: 10px 0;
   display: inline-block;
-  cursor: grab;
 }
 
 .row {
@@ -130,4 +135,8 @@ img:active {
 .play-again:hover {
   background: #0a0;
   color: #ddd;
+}
+
+body {
+  background: #ddd;
 }
