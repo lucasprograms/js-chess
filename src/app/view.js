@@ -37,6 +37,7 @@
           startingSquare = ui.draggable.parent().data('pos');
           targetSquare = $(e.target).data('pos');
 
+
           this.getMoveValidity(startingSquare, targetSquare, e, ui);
         }.bind(this));
 

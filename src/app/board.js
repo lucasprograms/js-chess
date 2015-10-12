@@ -36,40 +36,42 @@
   };
 
   Board.prototype.placePieces = function () {
-    var colors = ["white", "black"];
-    var pieces = [[Chess.Rook, "Rook"], [Chess.Knight, "Knight"],
-                  [Chess.Bishop, "Bishop"], [Chess.Queen, "Queen"],
-                  [Chess.King, "King"], [Chess.Bishop, "Bishop"],
-                  [Chess.Knight, "Knight"], [Chess.Rook, "Rook"]];
+    // var colors = ["black", "white"];
+    // var pieces = [[Chess.Rook, "Rook"], [Chess.Knight, "Knight"],
+    //               [Chess.Bishop, "Bishop"], [Chess.Queen, "Queen"],
+    //               [Chess.King, "King"], [Chess.Bishop, "Bishop"],
+    //               [Chess.Knight, "Knight"], [Chess.Rook, "Rook"]];
+    //
+    // var row = 0;
+    // var col = 0;
+    //
+    // _.each(colors, function(color) {
+    //   _.each(pieces, function(piece) {
+    //     this.grid[row][col] = new piece[0](color, [row, col], piece[1]);
+    //     col += 1;
+    //   }.bind(this));
+    //
+    //   row = 7;
+    //   col = 0;
+    // }.bind(this));
 
-    var row = 7;
-    var col = 0;
 
-    _.each(colors, function(color) {
-      _.each(pieces, function(piece) {
-        this.grid[row][col] = new piece[0](color, [row, col], piece[1]);
-        col += 1;
-      }.bind(this));
-
-      row = 0;
-      col = 0;
-    }.bind(this));
   };
 
   Board.prototype.placePawns = function () {
-    var colors = ["white", "black"];
-    var row = 6;
-    var col = 0;
-
-    _.each(colors, function(color) {
-      _.times(8, function(piece) {
-        this.grid[row][col] = new Chess.Pawn(color, [row, col], "Pawn");
-        col += 1;
-      }.bind(this));
-
-      row = 1;
-      col = 0;
-    }.bind(this));
+    // var colors = ["white", "black"];
+    // var row = 6;
+    // var col = 0;
+    //
+    // _.each(colors, function(color) {
+    //   _.times(8, function(piece) {
+    //     this.grid[row][col] = new Chess.Pawn(color, [row, col], "Pawn");
+    //     col += 1;
+    //   }.bind(this));
+    //
+    //   row = 1;
+    //   col = 0;
+    // }.bind(this));
   };
 
   Board.prototype.isEmptyAt = function (pos) {
@@ -137,6 +139,8 @@
             $(".play-again").css("display", "none");
           });
         }
+
+        this.isDraw();
 
         game.switchColors();
         return this;
@@ -212,7 +216,6 @@
     var oppKing = this.findKing(oppColor, boardClone);
     var oppPieces = this.findPieces(oppColor, boardClone);
 
-
     _.each(oppPieces, function(piece) {
       _.each(piece.reachableSquares(boardClone), function(square) {
 
@@ -238,6 +241,34 @@
     }.bind(this));
 
     return isCheckmate;
+  };
+
+  Board.prototype.isDraw = function () {
+    oppColor = (game.currentColor === "white") ? "black" : "white";
+    var board = this;
+    var isDraw = true;
+
+    var oppKing = this.findKing(oppColor, board);
+    var oppPieces = this.findPieces(oppColor, board);
+    var myPieces = this.findPieces(game.currentColor, board);
+
+    _.each(oppPieces, function(piece) {
+      _.each(piece.reachableSquares(board), function() {
+        if (reachableSquares.length > 0) {
+          isDraw = false;
+        }
+      });
+    });
+
+    
+
+
+
+
+
+    if (isDraw) {
+      console.log("draw");
+    }
   };
 
   Board.prototype.findRook = function (pos) {
