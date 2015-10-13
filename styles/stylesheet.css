@@ -14,6 +14,8 @@ html, body, ul, li, img, div {
 
 body {
   text-align: center;
+  background: #ddd;
+  font-family: 'Raleway', sans-serif;
 }
 
 ul {
@@ -105,7 +107,7 @@ header {
 .checkmate-form {
   display: none;
   font-size: 60px;
-  font-family: sans-serif;
+  /*font-family: sans-serif;*/
   position: relative;
   margin: 0 auto;
   width: 372px;
@@ -119,7 +121,7 @@ header {
 .play-again {
   display: none;
   font-size: 40px;
-  font-family: sans-serif;
+  /*font-family: sans-serif;*/
   margin: 0 auto;
   position: relative;
   padding: 20px 10px 20px 10px;
@@ -137,6 +139,13 @@ header {
   color: #ddd;
 }
 
-body {
-  background: #ddd;
+.current-color {
+  margin: 25px 0 0 0;
+}
+
+.piece-graveyard {
+  height: 200px;
+  width: 200px;
+  border: 1px solid #000;
+  float: right;
 }

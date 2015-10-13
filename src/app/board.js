@@ -143,6 +143,7 @@
         this.isDraw();
 
         game.switchColors();
+        $(".current-color").text(game.currentColor.capitalize() + "'s Move");
         return this;
       }
     } else {
@@ -244,25 +245,25 @@
   };
 
   Board.prototype.isDraw = function () {
-    oppColor = (game.currentColor === "white") ? "black" : "white";
-    var board = this;
-    var isDraw = true;
-
-    var oppKing = this.findKing(oppColor, board);
-    var oppPieces = this.findPieces(oppColor, board);
-    var myPieces = this.findPieces(game.currentColor, board);
-
-    _.each(oppPieces, function(piece) {
-      _.each(piece.reachableSquares(board), function() {
-        if (reachableSquares.length > 0) {
-          isDraw = false;
-        }
-      });
-    });
-
-    if (isDraw) {
-      console.log("draw");
-    }
+    // oppColor = (game.currentColor === "white") ? "black" : "white";
+    // var board = this;
+    // var isDraw = true;
+    //
+    // var oppKing = this.findKing(oppColor, board);
+    // var oppPieces = this.findPieces(oppColor, board);
+    // var myPieces = this.findPieces(game.currentColor, board);
+    //
+    // _.each(oppPieces, function(piece) {
+    //   _.each(piece.reachableSquares(board), function() {
+    //     if (reachableSquares.length > 0) {
+    //       isDraw = false;
+    //     }
+    //   });
+    // });
+    //
+    // if (isDraw) {
+    //   console.log("draw");
+    // }
   };
 
   Board.prototype.findRook = function (pos) {

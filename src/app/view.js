@@ -64,7 +64,6 @@
       row_val += 1;
       col_val = 0;
     }.bind(this));
-
   };
 
   View.prototype.getMoveValidity = function (startingSquare, targetSquare, e, ui) {
