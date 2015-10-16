@@ -30,6 +30,7 @@ img {
 
 img:active {
   cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
   cursor: grabbing;
   z-index: 2;
 }
